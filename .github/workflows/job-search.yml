@@ -1,7 +1,9 @@
 # damir-job-search — single workflow, no AI.
-# Runner pinned to ubuntu-24.04 (avoids the ubuntu-latest -> Ubuntu 26 migration notice).
-# Only one JavaScript action is used: actions/checkout@v5 (runs on Node.js 24).
-# Python 3.12 is preinstalled on ubuntu-24.04, so actions/setup-python is not needed.
+# All jobs: runs-on ubuntu-24.04 (no ubuntu-latest -> Ubuntu 26 notice).
+# Only Node.js 24 actions: checkout@v5, upload-artifact@v7, deploy-pages@v5.
+# The dashboard is deployed here, so GitHub's built-in "pages build and deployment"
+# workflow (Node 20 actions, ubuntu-latest) is no longer used.
+# Requires: Settings -> Pages -> Source: GitHub Actions.
 name: job-search
 
 on:
@@ -23,6 +25,8 @@ on:
 permissions:
   contents: write
   issues: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: job-search
@@ -62,3 +66,31 @@ jobs:
             sleep 5
           done
           exit 1
+
+      # Same artifact format as actions/upload-pages-artifact (artifact "github-pages"
+      # holding artifact.tar), built with tar + upload-artifact@v7 (Node.js 24).
+      - name: Package dashboard
+        run: |
+          mkdir -p docs
+          [ -f docs/index.html ] || python3 jobsearch.py dashboard
+          tar --dereference --hard-dereference --directory docs -cvf "$RUNNER_TEMP/artifact.tar" --exclude=.git --exclude=.github .
+
+      - name: Upload dashboard
+        uses: actions/upload-artifact@v7
+        with:
+          name: github-pages
+          path: ${{ runner.temp }}/artifact.tar
+          retention-days: 1
+          if-no-files-found: error
+
+  deploy:
+    needs: run
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy dashboard to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
