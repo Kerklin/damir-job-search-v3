@@ -1,7 +1,9 @@
 # damir-job-search — single workflow, no AI.
-# Runner pinned to ubuntu-24.04 (avoids the ubuntu-latest -> Ubuntu 26 migration notice).
-# Only one JavaScript action is used: actions/checkout@v5 (runs on Node.js 24).
-# Python 3.12 is preinstalled on ubuntu-24.04, so actions/setup-python is not needed.
+# - All jobs run on ubuntu-24.04 (no ubuntu-latest -> Ubuntu 26 notice).
+# - Only Node.js 24 actions: checkout@v5, upload-artifact@v7, deploy-pages@v5.
+# - The dashboard is deployed by this workflow. Requires: Settings -> Pages -> Source: GitHub Actions.
+# - Least privilege: each job gets only the permissions it needs.
+# Keep this file identical to WORKFLOW-job-search.yml (the self-test compares them).
 name: job-search
 
 on:
@@ -20,9 +22,8 @@ on:
     branches: [main]
     paths-ignore: ["data/**", "docs/**", "applications/**"]
 
-permissions:
-  contents: write
-  issues: write
+# Nothing by default; granted per job below.
+permissions: {}
 
 concurrency:
   group: job-search
@@ -30,8 +31,17 @@ concurrency:
 
 jobs:
   run:
+    # Issue events: only the repository owner can trigger runs (public repo protection).
+    # Skip the duplicate "labeled: apply" event fired together with "opened".
+    if: >-
+      github.event_name != 'issues' ||
+      (github.event.sender.login == github.repository_owner &&
+       (github.event.action != 'labeled' || startsWith(github.event.label.name, 'status:')))
     runs-on: ubuntu-24.04
     timeout-minutes: 15
+    permissions:
+      contents: write     # commit generated files
+      issues: write       # comments, labels, issue form
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -62,3 +72,40 @@ jobs:
             sleep 5
           done
           exit 1
+
+      # Same artifact format as actions/upload-pages-artifact ("github-pages" artifact
+      # holding artifact.tar), built with tar + upload-artifact@v7 (Node.js 24).
+      - name: Package dashboard
+        run: |
+          mkdir -p docs
+          [ -f docs/index.html ] || python3 jobsearch.py dashboard
+          touch docs/.nojekyll
+          tar --dereference --hard-dereference --directory docs -cvf "$RUNNER_TEMP/artifact.tar" --exclude=.git --exclude=.github .
+
+      - name: Upload dashboard
+        uses: actions/upload-artifact@v7
+        with:
+          name: github-pages
+          path: ${{ runner.temp }}/artifact.tar
+          retention-days: 1
+          if-no-files-found: error
+
+  deploy:
+    needs: run
+    # Deploy only from main (matches the github-pages environment branch rule).
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      pages: write        # create the Pages deployment
+      id-token: write     # OIDC token required by deploy-pages
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy dashboard to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
