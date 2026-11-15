@@ -1,1 +1,32 @@
-
+name: Apply for a job
+description: Paste a job posting to generate screening, tailored CV, cover letter and more
+title: "[APPLY] "
+labels: ["apply"]
+body:
+  - type: input
+    id: job_title
+    attributes: {label: Job title}
+    validations: {required: true}
+  - type: input
+    id: organisation
+    attributes: {label: Organisation}
+    validations: {required: true}
+  - type: input
+    id: posting_url
+    attributes: {label: Posting URL}
+  - type: input
+    id: vacancy_ref
+    attributes: {label: Vacancy reference}
+  - type: input
+    id: grade
+    attributes: {label: Grade or contract type, description: "e.g. P-3, NO-C, consultancy"}
+  - type: input
+    id: duty_station
+    attributes: {label: Duty station}
+  - type: dropdown
+    id: language
+    attributes: {label: Output language, options: [English, Bosnian]}
+  - type: textarea
+    id: posting_text
+    attributes: {label: Job posting text, description: "Paste the full posting: responsibilities, qualifications, competencies"}
+    validations: {required: true}
