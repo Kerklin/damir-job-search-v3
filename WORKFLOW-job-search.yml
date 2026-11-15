@@ -1,0 +1,64 @@
+# damir-job-search — single workflow, no AI.
+# Runner pinned to ubuntu-24.04 (avoids the ubuntu-latest -> Ubuntu 26 migration notice).
+# Only one JavaScript action is used: actions/checkout@v5 (runs on Node.js 24).
+# Python 3.12 is preinstalled on ubuntu-24.04, so actions/setup-python is not needed.
+name: job-search
+
+on:
+  schedule:
+    - cron: "15 6 * * *"          # daily scrape + ranking (06:15 UTC)
+  workflow_dispatch:
+    inputs:
+      task:
+        description: "Task to run"
+        type: choice
+        options: [daily, setup, dashboard, test]
+        default: setup
+  issues:
+    types: [opened, edited, labeled]
+  push:
+    branches: [main]
+    paths-ignore: ["data/**", "docs/**", "applications/**"]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: job-search
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Privacy check and self-test
+        run: |
+          python3 jobsearch.py check
+          python3 jobsearch.py test
+
+      - name: Run task
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELIEFWEB_APPNAME: ${{ vars.RELIEFWEB_APPNAME }}
+          EVENT_NAME: ${{ github.event_name }}
+          TASK: ${{ inputs.task }}
+        run: python3 jobsearch.py ci
+
+      - name: Save results
+        if: github.event_name != 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "No changes to save"; exit 0; fi
+          git commit -m "job-search: ${{ github.event_name }} [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep 5
+          done
+          exit 1

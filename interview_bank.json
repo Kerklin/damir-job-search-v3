@@ -1,0 +1,23 @@
+{
+  "competencies": {
+    "Planning and organising": {"triggers": ["plan", "schedule", "organis", "priorit", "deadline", "work plan"], "tags": ["planning", "project management"],
+      "questions": ["Describe how you planned and tracked a complex multi-site project.", "Tell us about a time you had to reprioritise work under a tight deadline."]},
+    "Quality and technical expertise": {"triggers": ["quality", "technical", "specification", "standard", "inspection"], "tags": ["quality assurance", "construction supervision", "technical expertise"],
+      "questions": ["Give an example of a quality problem you identified on site and how you resolved it.", "How do you check that works comply with the design and specifications?"]},
+    "Accountability and integrity": {"triggers": ["accountab", "integrity", "compliance", "fraud", "audit", "payment"], "tags": ["accountability", "payment verification", "integrity"],
+      "questions": ["Tell us about a time you refused or corrected a payment request.", "How do you ensure compliance with rules when under pressure to deliver?"]},
+    "Contract and change management": {"triggers": ["contract", "variation", "claim", "fidic"], "tags": ["contract management", "change management", "decision making"],
+      "questions": ["Describe how you handled a contractor variation or claim.", "How do you manage a contractor that is falling behind schedule?"]},
+    "Working with people and partnerships": {"triggers": ["partner", "stakeholder", "government", "coordinat", "communicat", "team"], "tags": ["stakeholder", "partnership", "communication", "teamwork"],
+      "questions": ["Tell us about a difficult stakeholder and how you built agreement.", "How do you coordinate government counterparts, contractors and internal teams?"]},
+    "Analysing and problem solving": {"triggers": ["analy", "problem", "solution", "assess"], "tags": ["problem solving", "analytical"],
+      "questions": ["Describe a technical problem with no obvious solution and how you solved it."]},
+    "Procurement": {"triggers": ["procure", "tender", "bid", "terms of reference"], "tags": ["procurement", "tender"],
+      "questions": ["Walk us through how you prepare technical specifications and evaluation criteria for a works tender."]},
+    "Risk and safety": {"triggers": ["risk", "safety", "hse", "ohs", "security"], "tags": ["risk management", "health and safety"],
+      "questions": ["How do you identify and manage construction risks, including health and safety?"]},
+    "Results and reporting": {"triggers": ["result", "report", "monitor", "evaluat"], "tags": ["reporting", "results", "results-based management"],
+      "questions": ["Tell us how you reported progress and risks to management and donors."]}
+  },
+  "motivation": ["Why do you want to work for this organisation, and why this role?", "Where do you see yourself contributing most in the first year?"]
+}

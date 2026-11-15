@@ -1,0 +1,270 @@
+{
+  "sources": {
+    "reliefweb": {
+      "enabled": true,
+      "queries": [
+        "construction engineer",
+        "infrastructure engineer",
+        "WASH engineer",
+        "project manager infrastructure",
+        "construction procurement",
+        "site engineer"
+      ],
+      "limit": 40
+    },
+    "rss_feeds": []
+  },
+  "ranking": {
+    "weights": {
+      "requirements": 50,
+      "experience": 20,
+      "keywords": 15,
+      "location": 15
+    },
+    "preferred_locations": [
+      "bosnia",
+      "sarajevo",
+      "western balkans",
+      "europe",
+      "home-based",
+      "home based",
+      "remote",
+      "multiple"
+    ],
+    "exclude_if_contains": [
+      "software engineer",
+      "nurse",
+      "medical doctor",
+      "driver position"
+    ],
+    "min_score_dashboard": 40,
+    "auto_issue_min_score": 0,
+    "keep_days": 60
+  },
+  "skills": {
+    "construction supervision": [
+      "construction supervision",
+      "site supervision",
+      "construction monitoring",
+      "supervision of works",
+      "site visits",
+      "construction management"
+    ],
+    "quality assurance": [
+      "quality assurance",
+      "quality control",
+      "qa/qc",
+      "inspection",
+      "non-conformit",
+      "defect"
+    ],
+    "contract management": [
+      "contract management",
+      "contract administration",
+      "variation",
+      "claims",
+      "extension of time",
+      "close-out"
+    ],
+    "design review": [
+      "design review",
+      "drawings",
+      "technical designs",
+      "constructability",
+      "specifications"
+    ],
+    "bills of quantities": [
+      "bill of quantities",
+      "bills of quantities",
+      "boq",
+      "cost estimate",
+      "cost estimates",
+      "quantity surveying"
+    ],
+    "procurement": [
+      "procurement",
+      "tender",
+      "bid evaluation",
+      "bidding",
+      "terms of reference",
+      "scope of work",
+      "sourcing"
+    ],
+    "payment verification": [
+      "payment",
+      "interim payment",
+      "certificate",
+      "invoices",
+      "financial monitoring"
+    ],
+    "project management": [
+      "project management",
+      "project manager",
+      "pmp",
+      "planning",
+      "schedule",
+      "work plan",
+      "ms project"
+    ],
+    "programme management": [
+      "programme management",
+      "program management",
+      "programme coordination",
+      "portfolio"
+    ],
+    "risk management": [
+      "risk management",
+      "risk register",
+      "risk",
+      "mitigation"
+    ],
+    "reporting": [
+      "reporting",
+      "reports",
+      "documentation",
+      "notes for record",
+      "minutes"
+    ],
+    "monitoring and evaluation": [
+      "monitoring and evaluation",
+      "m&e",
+      "results-based",
+      "indicators",
+      "logframe",
+      "logical framework"
+    ],
+    "stakeholder coordination": [
+      "stakeholder",
+      "coordination",
+      "partners",
+      "government counterparts",
+      "ministries",
+      "municipalities",
+      "partnership"
+    ],
+    "wash": [
+      "wash",
+      "water supply",
+      "sanitation",
+      "hygiene",
+      "water and sanitation"
+    ],
+    "energy efficiency": [
+      "energy efficiency",
+      "solar",
+      "renewable",
+      "photovoltaic",
+      "thermal insulation"
+    ],
+    "health and safety": [
+      "health and safety",
+      "ohs",
+      "hse",
+      "occupational safety",
+      "safety"
+    ],
+    "rehabilitation": [
+      "rehabilitation",
+      "renovation",
+      "refurbishment",
+      "retrofit",
+      "reconstruction"
+    ],
+    "public infrastructure": [
+      "infrastructure",
+      "public buildings",
+      "schools",
+      "health facilities",
+      "social infrastructure"
+    ],
+    "eu funding": [
+      "eu-funded",
+      "european union",
+      "ipa",
+      "eu funded",
+      "donor"
+    ],
+    "humanitarian": [
+      "humanitarian",
+      "emergency",
+      "crisis",
+      "shelter"
+    ],
+    "heritage": [
+      "heritage",
+      "conservation",
+      "historic buildings",
+      "restoration"
+    ],
+    "autocad": [
+      "autocad",
+      "cad",
+      "dwg"
+    ],
+    "erp": [
+      "sap",
+      "vision",
+      "erp",
+      "inspira"
+    ],
+    "accessibility": [
+      "accessibility",
+      "inclusive",
+      "universal design"
+    ],
+    "architecture": [
+      "architect",
+      "architecture",
+      "architectural"
+    ],
+    "civil engineering": [
+      "civil engineering",
+      "civil engineer",
+      "structural"
+    ],
+    "fidic": [
+      "fidic"
+    ]
+  },
+  "profile_skills_override": [],
+  "languages_known": {
+    "english": "fluent",
+    "bosnian": "native",
+    "croatian": "native",
+    "serbian": "native",
+    "french": "working",
+    "italian": "working"
+  },
+  "learning_resources": {
+    "contract management": "FIDIC contract training; UNICEF AGORA Construction Contracts",
+    "monitoring and evaluation": "UNICEF AGORA M&E courses; PM4NGOs PMD Pro",
+    "civil engineering": "Structural design refresher (Coursera audit); local engineering chamber CPD",
+    "humanitarian": "Kaya (Humanitarian Leadership Academy) — Shelter and Settlements; Sphere Handbook",
+    "procurement": "UNDP/CIPS Level 2 Procurement; UNICEF AGORA Supply courses",
+    "wash": "UNICEF AGORA WASH courses; Cawst online courses",
+    "energy efficiency": "IRENA Learning Platform; EU Covenant of Mayors resources",
+    "erp": "Organisation onboarding modules (SAP/VISION, Inspira, Quantum)",
+    "default": "Search UN AGORA, Kaya, Coursera (audit) and PMI for the skill name"
+  },
+  "salary_links": {
+    "UN professional (P/D)": "https://www.un.org/en/ga/icsc/salary.htm",
+    "UN post adjustment": "https://icsc.un.org/Home/DataPostAdjustment",
+    "UN national officers / general service": "https://icsc.un.org/Home/DataSalaryScales",
+    "UN pay and benefits overview": "https://careers.un.org/salaries-allowances"
+  },
+  "panel_questions": [
+    "What would success look like in this role after the first six months?",
+    "What are the main delivery risks in the current portfolio, and how is the team managing them?",
+    "How do engineering, programme and supply teams share decisions on contractor performance and payments?"
+  ],
+  "generic_skills": [
+    "architecture",
+    "public infrastructure",
+    "civil engineering",
+    "reporting",
+    "stakeholder coordination"
+  ],
+  "org_motivation": {
+    "unicef": "[EDIT: link to the UNICEF country programme or the specific education/WASH infrastructure results this role supports.]"
+  }
+}
